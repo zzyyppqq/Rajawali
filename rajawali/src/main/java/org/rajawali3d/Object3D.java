@@ -25,6 +25,7 @@ import org.rajawali3d.materials.textures.TexturePacker.Tile;
 import org.rajawali3d.math.Matrix;
 import org.rajawali3d.math.Matrix4;
 import org.rajawali3d.math.vector.Vector3;
+import org.rajawali3d.scene.ViewPort;
 import org.rajawali3d.util.GLU;
 import org.rajawali3d.util.RajLog;
 import org.rajawali3d.visitors.INode;
@@ -41,6 +42,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author dennis.ippel
  */
 public class Object3D extends ATransformable3D implements Comparable<Object3D>, INode {
+
+    protected ViewPort mViewPort;
+
+    public ViewPort getViewPort() {
+        return mViewPort;
+    }
+
+    public void setViewPort(ViewPort viewPort) {
+        mViewPort = viewPort;
+    }
 
     public static final int RED   = 0;
     public static final int GREEN = 1;
@@ -189,7 +200,10 @@ public class Object3D extends ATransformable3D implements Comparable<Object3D>, 
         if (isDestroyed() || (!mIsVisible && !mRenderChildrenAsBatch) || isZeroScale()) {
             return;
         }
-
+        if (mViewPort != null) {
+            camera.setProjectionMatrix(mViewPort.width, mViewPort.height);
+            GLES20.glViewport(mViewPort.x, mViewPort.y, mViewPort.width, mViewPort.height);
+        }
         if (parentMatrix != null) {
             if (mParentMatrix == null) {
                 mParentMatrix = new Matrix4();

@@ -1,25 +1,23 @@
 package com.zyp.learn.sence
 
 import android.util.Log
+import com.zyp.learn.LineRenderer
 import com.zyp.learn.camera.CameraLine2D
-import com.zyp.learn.LineFragment
-import org.rajawali3d.cameras.Camera
 import org.rajawali3d.materials.Material
 import org.rajawali3d.math.vector.Vector3
 import org.rajawali3d.primitives.Line3D
-import org.rajawali3d.scene.Scene
+import org.rajawali3d.scene.ViewPort
 import java.util.Stack
 
 object Line2DScene {
 
-    fun initScene(render: LineFragment.LineRenderer, width: Int, height: Int, currentCamera:Camera, currentScene: Scene) {
-        Log.i("ZYP", "initScene width: $width, height: $height")
+    fun initScene(renderer: LineRenderer) {
+        val width = renderer.width
+        val height = renderer.height
+        Log.i("ZYPP", "initScene width: $width, height: $height")
 
         val camera2D = CameraLine2D()
-
-        currentScene.switchCamera(camera2D)
-
-        render.setViewPort(0,0,width / 2, height)
+        renderer.currentScene.switchCamera(camera2D)
 
         val points = Stack<Vector3>()
         val colors = IntArray(3)
@@ -37,30 +35,30 @@ object Line2DScene {
         material.useVertexColors(true)
         line.material = material
         // 移动
-        line.setPosition(-0.0, 0.0, 0.0)
+        line.setPosition(-0.0, 500.0, 0.0)
         // 缩放
-        line.setScaleX(0.5)
-        line.setScaleY(2.0)
+//        line.setScaleX(0.5)
+//        line.setScaleY(2.0)
         // 旋转
-        line.setRotation(Vector3.Axis.Z, 0.0)
+        line.setRotation(Vector3.Axis.Z, 10.0)
+        line.viewPort = ViewPort(0, 0, width / 2, height)
+        renderer.currentScene.addChild(line)
 
-        currentScene.addChild(line)
 
-        render.startRendering()
 
-        render.setViewPort(width/2, 0, width / 2, height)
         val line2 = Line3D(points, 10f, colors, true)
         val material2 = Material()
         material2.useVertexColors(true)
         line2.material = material2
         // 移动
-        line2.setPosition(-0.0, 0.0, 0.0)
+        line2.setPosition(-0.0, 500.0, 0.0)
         // 缩放
-        line2.setScaleX(0.5)
-        line2.setScaleY(2.0)
+//        line2.setScaleX(0.5)
+//        line2.setScaleY(2.0)
         // 旋转
         line2.setRotation(Vector3.Axis.Z, 0.0)
+        line2.viewPort = ViewPort(width/2, 0, width/2, height)
 
-        currentScene.addChild(line2)
+        renderer.currentScene.addChild(line2)
     }
 }

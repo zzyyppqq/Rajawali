@@ -5,9 +5,11 @@
 
 package com.zyp.learn.camera;
 
-import org.rajawali3d.cameras.Camera;
+import android.util.Log;
 
-public class CameraLine2D extends Camera {
+import org.rajawali3d.cameras.Camera2D;
+
+public class CameraLine2D extends Camera2D {
     private double mWidth = 1.0;
     private double mHeight = 1.0;
 
@@ -24,6 +26,7 @@ public class CameraLine2D extends Camera {
     }
 
     public void setProjectionMatrix(int width, int height) {
+        Log.i("ZYPP","setProjectionMatrix width: "+ width +" , height: " + height);
         this.mProjMatrix.setToOrthographic(0.0, width, height,0.0,  this.mNearPlane, this.mFarPlane);
     }
 

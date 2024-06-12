@@ -1,17 +1,16 @@
 package com.zyp.learn.sence
 
-import org.rajawali3d.cameras.Camera
+import com.zyp.learn.LineRenderer
 import org.rajawali3d.materials.Material
 import org.rajawali3d.math.vector.Vector3
 import org.rajawali3d.primitives.Line3D
-import org.rajawali3d.scene.Scene
 import java.util.Stack
 
 object BaseLineScene {
 
-    fun initScene(currentCamera:Camera, currentScene: Scene) {
+    fun initScene(renderer: LineRenderer) {
 
-        currentCamera.setPosition(0.0, 0.0, 27.0)
+        renderer.currentCamera.setPosition(0.0, 0.0, 27.0)
 
         val points = Stack<Vector3>()
         val colors = IntArray(3)
@@ -30,6 +29,6 @@ object BaseLineScene {
         line.material = material
 
 
-        currentScene.addChild(line)
+        renderer.currentScene.addChild(line)
     }
 }
