@@ -1,9 +1,8 @@
 package com.zyp.learn
 
 import android.content.Context
-import android.opengl.GLES20
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -13,15 +12,11 @@ import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import com.zyp.learn.camera.CameraLine2D
 import com.zyp.learn.mock.MockWaveData
-import com.zyp.learn.sence.BaseLineScene
-import com.zyp.learn.sence.Line2DScene
-import com.zyp.learn.sence.OrthoLineScene
 import org.rajawali3d.materials.Material
 import org.rajawali3d.math.vector.Vector3
 import org.rajawali3d.primitives.Line3D
 import org.rajawali3d.renderer.ISurfaceRenderer
 import org.rajawali3d.renderer.Renderer
-import org.rajawali3d.scene.ViewPort
 import org.rajawali3d.view.IDisplay
 import org.rajawali3d.view.ISurface
 import org.rajawali3d.view.TextureView
@@ -140,7 +135,7 @@ class LineRenderer(context: Context?, private val fragment: LineFragment) : Rend
 
         val camera2D = CameraLine2D()
         currentScene.switchCamera(camera2D)
-
+        currentScene.backgroundColor = Color.BLACK
 
         val array = MockWaveData.generateDoubleArray(256, 10, 100.0)
 
