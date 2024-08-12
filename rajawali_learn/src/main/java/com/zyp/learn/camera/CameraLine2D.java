@@ -26,7 +26,7 @@ public class CameraLine2D extends Camera2D {
     }
 
     public void setProjectionMatrix(int width, int height) {
-        Log.i("ZYPP","setProjectionMatrix width: "+ width +" , height: " + height);
+        Log.i("ZYPP","setProjectionMatrix width: "+ width +" , height: " + height + ", mNearPlane: " + mNearPlane + ", mFarPlane: " + mFarPlane);
         this.mProjMatrix.setToOrthographic(0.0, width, height,0.0,  this.mNearPlane, this.mFarPlane);
     }
 

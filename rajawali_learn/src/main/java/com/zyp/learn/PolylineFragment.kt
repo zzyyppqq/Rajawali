@@ -24,10 +24,6 @@ import java.util.Stack
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class LineFragment : Fragment(), IDisplay {
 
     private lateinit var mRenderer: ISurfaceRenderer
@@ -67,7 +63,6 @@ class LineFragment : Fragment(), IDisplay {
     }
 
     private fun initListener() {
-
         seekBarX.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 mLineRenderer?.scaleX(progress * 0.1)
@@ -120,29 +115,28 @@ class LineFragment : Fragment(), IDisplay {
     }
 }
 
-
-class LineRenderer(context: Context?, private val fragment: LineFragment) : Renderer(context) {
-
-    var width = 0
-    var height = 0
-
-    var line: Line3D? = null
-
-    override fun initScene() {
 //        BaseLineScene.initScene(this)
 //        OrthoLineScene.initScene(this)
 //        Line2DScene.initScene(this)
 
-        val camera2D = CameraLine2D()
-        currentScene.switchCamera(camera2D)
-        currentScene.backgroundColor = Color.BLACK
 
-        val array = MockWaveData.generateDoubleArray(256, 10, 100.0)
+class LineRenderer(context: Context?, private val fragment: LineFragment) : Renderer(context) {
 
-        val points = Stack<Vector3>()
-        val colors = IntArray(array.size)
+    var width = 0
 
-        array?.forEachIndexed { index, value ->
+    var height = 0
+
+    var line: Line3D? = null
+
+    val points = Stack<Vector3>()
+
+    val colors: IntArray
+
+    val array = MockWaveData.generateDoubleArray(256, 10, 100.0)
+
+    init {
+        colors = IntArray(array.size)
+        array.forEachIndexed { index, value ->
             points.add(Vector3(index.toDouble(), value, 0.0))
             if (index < array.size / 3) {
                 colors[index] = -0x10000 // red
@@ -152,6 +146,12 @@ class LineRenderer(context: Context?, private val fragment: LineFragment) : Rend
                 colors[index] = -0x100 // yellow
             }
         }
+    }
+
+    override fun initScene() {
+        val camera2D = CameraLine2D()
+        currentScene.switchCamera(camera2D)
+        currentScene.backgroundColor = Color.BLACK
 
         line = Line3D(points, 2f, colors, true)
         val material = Material()

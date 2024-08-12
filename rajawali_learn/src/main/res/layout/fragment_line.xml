@@ -7,7 +7,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".LineFragment">
 
-
     <org.rajawali3d.view.TextureView
         android:id="@+id/rajwali_surface"
         android:layout_width="match_parent"
@@ -19,6 +18,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:renderMode="RENDER_WHEN_DIRTY" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Rajawali"
+        android:textSize="18sp"
+        android:textColor="@color/white" />
 
     <SeekBar
         android:id="@+id/seekBarY"
